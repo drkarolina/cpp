@@ -9,7 +9,9 @@ import java.util.concurrent.locks.ReentrantLock;
 import conteiners.Command;
 import conteiners.Order;
 import conteiners.Pizza;
+import enums.ECommand;
 import enums.ECookType;
+import enums.EnumStatuses;
 import enums.Ingridients;
 
 
@@ -59,40 +61,40 @@ class Kitchen{
             for (int ingradients = 0; ingradients != in.size(); ++ingradients){
                 switch (in.get(ingradients)){
                     case DOUGH:
-                        addCommand(new Command(KANEAD_DOUGH, pizza.get(i).getPizzaId(), _order.GetId()));
+                        addCommand(new Command(ECommand.KANEAD_DOUGH, pizza.get(i).getPizzaId(), _order.GetId()));
                         break;
                     case PICKLES:
-                        addCommand(new Command(PUT_PICKLES, pizza.get(i).getPizzaId(), _order.GetId()));
+                        addCommand(new Command(ECommand.PUT_PICKLES, pizza.get(i).getPizzaId(), _order.GetId()));
                         break;
                     case MUSHROOMS:
-                        addCommand(new Command(PUT_MUSHROOMS, pizza.get(i).getPizzaId(), _order.GetId()));
+                        addCommand(new Command(ECommand.PUT_MUSHROOMS, pizza.get(i).getPizzaId(), _order.GetId()));
                         break;
                     case BASIL:
-                        addCommand(new Command(PUT_BASIL, pizza.get(i).getPizzaId(), _order.GetId()));
+                        addCommand(new Command(ECommand.PUT_BASIL, pizza.get(i).getPizzaId(), _order.GetId()));
                         break;
                     case TOMATOES:
-                        addCommand(new Command(PUT_TOMATOES, pizza.get(i).getPizzaId(), _order.GetId()));
+                        addCommand(new Command(ECommand.PUT_TOMATOES, pizza.get(i).getPizzaId(), _order.GetId()));
                         break;
                     case SAUSAGES:
-                        addCommand(new Command(PUT_SAUSAGE, pizza.get(i).getPizzaId(), _order.GetId()));
+                        addCommand(new Command(ECommand.PUT_SAUSAGE, pizza.get(i).getPizzaId(), _order.GetId()));
                         break;
                     case OLIVES:
-                        addCommand(new Command(PUT_OLIVES, pizza.get(i).getPizzaId(), _order.GetId()));
+                        addCommand(new Command(ECommand.PUT_OLIVES, pizza.get(i).getPizzaId(), _order.GetId()));
                         break;
                     case CORN:
-                        addCommand(new Command(PUT_CORN, pizza.get(i).getPizzaId(), _order.GetId()));
+                        addCommand(new Command(ECommand.PUT_CORN, pizza.get(i).getPizzaId(), _order.GetId()));
                         break;
                     case CHICKEN:
-                        addCommand(new Command(PUT_CHICKEN, pizza.get(i).getPizzaId(), _order.GetId()));
+                        addCommand(new Command(ECommand.PUT_CHICKEN, pizza.get(i).getPizzaId(), _order.GetId()));
                         break;
                     case CHEESE:
-                        addCommand(new Command(PUT_CHEESE, pizza.get(i).getPizzaId(), _order.GetId()));
+                        addCommand(new Command(ECommand.PUT_CHEESE, pizza.get(i).getPizzaId(), _order.GetId()));
                         break;
                     case PINEAPPLE:
-                        addCommand(new Command(PUT_PINEAPPLE, pizza.get(i).getPizzaId(), _order.GetId()));
+                        addCommand(new Command(ECommand.PUT_PINEAPPLE, pizza.get(i).getPizzaId(), _order.GetId()));
                         break;
                     case SAUCE:
-                        addCommand(new Command(PUT_SAUCE, pizza.get(i).getPizzaId(), _order.GetId()));
+                        addCommand(new Command(ECommand.PUT_SAUCE, pizza.get(i).getPizzaId(), _order.GetId()));
                         break;
                 }
             }
@@ -162,7 +164,7 @@ class Kitchen{
         }
 
         public void run() {
-            if(type == STANDART){
+            if(type == ECookType.STANDART){
                 while (!exit) {
                     mutex.lock();
                         if (!queue_commands.isEmpty()) {
@@ -171,7 +173,7 @@ class Kitchen{
                             DoWork();
                             switch (command.getCommand_type()) {
                                 case KANEAD_DOUGH:
-                                    orders.get(command.getOrder_ID()).GetPizzasList().get(command.getPizza_ID()).setPizzaStatus(String.valueOf(kneading));
+                                    orders.get(command.getOrder_ID()).GetPizzasList().get(command.getPizza_ID()).setPizzaStatus(String.valueOf(EnumStatuses.kneading));
                                     break;
                                 case PUT_PICKLES:
                                 case PUT_MUSHROOMS:
@@ -183,18 +185,18 @@ class Kitchen{
                                 case PUT_PINEAPPLE:
                                 case PUT_SAUCE:
                                 case PUT_CORN:
-                                    orders.get(command.getOrder_ID()).GetPizzasList().get(command.getPizza_ID()).setPizzaStatus(String.valueOf(adding_ingridients));
+                                    orders.get(command.getOrder_ID()).GetPizzasList().get(command.getPizza_ID()).setPizzaStatus(String.valueOf(EnumStatuses.adding_ingridients));
                                     break;
                                 case TO_BAKE:
-                                    orders.get(command.getOrder_ID()).GetPizzasList().get(command.getPizza_ID()).setPizzaStatus(String.valueOf(baking));
+                                    orders.get(command.getOrder_ID()).GetPizzasList().get(command.getPizza_ID()).setPizzaStatus(String.valueOf(EnumStatuses.baking));
                                     break;
                             }
                             if(!queue_commands.isEmpty()) {
                                 if (queue_commands.peek().getPizza_ID() != command.getPizza_ID()) {
-                                    orders.get(command.getOrder_ID()).GetPizzasList().get(command.getPizza_ID()).setPizzaStatus(String.valueOf(ready));
+                                    orders.get(command.getOrder_ID()).GetPizzasList().get(command.getPizza_ID()).setPizzaStatus(String.valueOf(EnumStatuses.ready));
                                 }
                             }else {
-                                orders.get(command.getOrder_ID()).GetPizzasList().get(command.getPizza_ID()).setPizzaStatus(String.valueOf(ready));
+                                orders.get(command.getOrder_ID()).GetPizzasList().get(command.getPizza_ID()).setPizzaStatus(String.valueOf(EnumStatuses.ready));
                             }
                         } else {
                             mutex.unlock();
@@ -223,7 +225,7 @@ class Kitchen{
                         for (int i = 0; i < toDo.size(); ++i) {
                             switch (toDo.get(i).getCommand_type()) {
                                 case KANEAD_DOUGH:
-                                    orders.get(toDo.get(0).getOrder_ID()).GetPizzasList().get(toDo.get(0).getPizza_ID()).setPizzaStatus(String.valueOf(kneading));
+                                    orders.get(toDo.get(0).getOrder_ID()).GetPizzasList().get(toDo.get(0).getPizza_ID()).setPizzaStatus(String.valueOf(EnumStatuses.kneading));
                                     break;
                                 case PUT_PICKLES:
                                 case PUT_MUSHROOMS:
@@ -235,14 +237,14 @@ class Kitchen{
                                 case PUT_PINEAPPLE:
                                 case PUT_SAUCE:
                                 case PUT_CORN:
-                                    orders.get(toDo.get(0).getOrder_ID()).GetPizzasList().get(toDo.get(0).getPizza_ID()).setPizzaStatus(String.valueOf(adding_ingridients));
+                                    orders.get(toDo.get(0).getOrder_ID()).GetPizzasList().get(toDo.get(0).getPizza_ID()).setPizzaStatus(String.valueOf(EnumStatuses.adding_ingridients));
                                     break;
                                 case TO_BAKE:
-                                    orders.get(toDo.get(0).getOrder_ID()).GetPizzasList().get(toDo.get(0).getPizza_ID()).setPizzaStatus(String.valueOf(baking));
+                                    orders.get(toDo.get(0).getOrder_ID()).GetPizzasList().get(toDo.get(0).getPizza_ID()).setPizzaStatus(String.valueOf(EnumStatuses.baking));
                                     break;
                             }
                         }
-                        orders.get(toDo.get(0).getOrder_ID()).GetPizzasList().get(toDo.get(0).getPizza_ID()).setPizzaStatus(String.valueOf(ready));
+                        orders.get(toDo.get(0).getOrder_ID()).GetPizzasList().get(toDo.get(0).getPizza_ID()).setPizzaStatus(String.valueOf(EnumStatuses.ready));
                     } else {
                         mutex.unlock();
                         chill();
