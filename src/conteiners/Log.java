@@ -2,10 +2,13 @@ package conteiners;
 
 import java.util.*;
 
+import enums.ECommand;
+
 public class Log {
     private static HashMap<Pizza, TimeStamp> pizzaTimes = new HashMap<>();
     private static HashMap<Order, TimeStamp> orderTimes = new HashMap<>();
     private static ArrayList<Customer> customers = new ArrayList<>();
+    private static HashMap<Integer, ECommand> chefs = new HashMap<>();
     public static HashMap<Pizza, TimeStamp> GetPizzaTimes() {
         return pizzaTimes;
     }
@@ -14,6 +17,9 @@ public class Log {
     }
     public static HashMap<Order, TimeStamp> GetOrderTimes() {
         return orderTimes;
+    }
+    public static HashMap<Integer, ECommand> GetChefs() {
+        return chefs;
     }
     public static void AddOrder(Order order){
         TimeStamp orderTime = new TimeStamp();
@@ -36,5 +42,8 @@ public class Log {
     }
     public static void AddCustomer(Customer customer){
         customers.add(customer);
+    }
+    private static void AddChef(Integer id, ECommand command){
+        chefs.put(id, command);
     }
 }
