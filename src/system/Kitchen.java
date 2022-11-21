@@ -19,7 +19,9 @@ import enums.Ingridients;
 class Kitchen{
     private static LinkedBlockingQueue<Command> queue_commands = new LinkedBlockingQueue<>();
 
-    public static Vector<Order> orders;
+    private static Vector<Order> orders = new Vector<>();;
+
+    private static Vector<Boolean> chillCook = new Vector<>();
 
     private static ReentrantLock mutex = new ReentrantLock();
 
@@ -34,9 +36,17 @@ class Kitchen{
     Kitchen(Integer _cookCount, ECookType _type){
         for (int i = 0; i != _cookCount; i++){
             cooks.add(new Cook(i, _type));
+            chillCook.add(false);
             cooks.get(i).start();
         }
-        orders = new Vector<>();
+    }
+
+    Vector<Boolean> getChillCooks(){
+        return chillCook;
+    }
+
+    Vector<Order> getOrders(){
+        return orders;
     }
 
     public void stop(){
@@ -113,8 +123,6 @@ class Kitchen{
 
         ECookType type;
 
-        private Integer time_to_wacation;
-
         private final Integer time_of_work = 300;
 
         private Integer cout_of_commands;
@@ -125,7 +133,6 @@ class Kitchen{
             ID = _ID;
             type = _type;
             cout_of_commands = 0;
-            time_to_wacation = (int) ((Math.random() * (200 - 70)) + 70);
         }
 
         private void DoWork() {
@@ -151,19 +158,25 @@ class Kitchen{
         }
 
         private void chill() {
+            chillCook.set(ID, true);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+            chillCook.set(ID, false);
+            cout_of_commands--;
         }
 
         private void chill(Integer time) {
+            chillCook.set(ID, true);
             try {
                 Thread.sleep(time);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+            chillCook.set(ID, false);
+            cout_of_commands--;
         }
 
         private void exit() {
