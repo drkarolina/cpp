@@ -27,12 +27,6 @@ class Kitchen{
 
     private Vector<Cook> cooks = new Vector<>();
 
-    public Vector<Boolean> getChillingCookVector() {
-        return chillingCooks;
-    }
-
-    private static Vector<Boolean> chillingCooks;
-
     Kitchen(Integer _cookCount, ECookType _type){
         for (int i = 0; i != _cookCount; i++){
             cooks.add(new Cook(i, _type));
@@ -41,11 +35,11 @@ class Kitchen{
         }
     }
 
-    Vector<Boolean> getChillCooks(){
+    public Vector<Boolean> getChillCooks(){
         return chillCook;
     }
 
-    Vector<Order> getOrders(){
+    public Vector<Order> getOrders(){
         return orders;
     }
 
