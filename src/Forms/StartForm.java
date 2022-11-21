@@ -145,7 +145,7 @@ public class StartForm {
 		
 		JLabel lblSfsds = new JLabel("");
 		lblSfsds.setVerticalAlignment(SwingConstants.TOP);
-		lblSfsds.setIcon(new ImageIcon("C:\\Users\\nasti\\OneDrive\\Изображения\\Снимки экрана\\Знімок екрана_20221121_142655.png"));
+		lblSfsds.setIcon(new ImageIcon(StartForm.class.getResource("/Forms/Images/IconsForStartForm.png")));
 		lblSfsds.setHorizontalAlignment(SwingConstants.LEFT);
 		lblSfsds.setFont(new Font("Times New Roman", Font.PLAIN, 19));
 		lblSfsds.setBounds(10, 89, 67, 191);
@@ -170,7 +170,7 @@ public class StartForm {
 		frmPizzeria.getContentPane().add(lblNewLabel_3);
 		
 		JLabel lblSfsds_1 = new JLabel("");
-		lblSfsds_1.setIcon(new ImageIcon("C:\\Users\\nasti\\OneDrive\\Изображения\\Снимки экрана\\Знімок екрана_20221121_142655.png"));
+		lblSfsds_1.setIcon(new ImageIcon(StartForm.class.getResource("/Forms/Images/IconsForStartForm.png")));
 		lblSfsds_1.setVerticalAlignment(SwingConstants.TOP);
 		lblSfsds_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblSfsds_1.setFont(new Font("Times New Roman", Font.PLAIN, 19));
@@ -196,7 +196,7 @@ public class StartForm {
 		frmPizzeria.getContentPane().add(lblNewLabel_3_1);
 		
 		JLabel lblSfsds_2 = new JLabel("");
-		lblSfsds_2.setIcon(new ImageIcon("C:\\Users\\nasti\\OneDrive\\Изображения\\Снимки экрана\\Знімок екрана_20221121_142655.png"));
+		lblSfsds_2.setIcon(new ImageIcon(StartForm.class.getResource("/Forms/Images/IconsForStartForm.png")));
 		lblSfsds_2.setVerticalAlignment(SwingConstants.TOP);
 		lblSfsds_2.setHorizontalAlignment(SwingConstants.LEFT);
 		lblSfsds_2.setFont(new Font("Times New Roman", Font.PLAIN, 19));
@@ -222,7 +222,7 @@ public class StartForm {
 		frmPizzeria.getContentPane().add(lblNewLabel_3_2);
 		
 		JLabel lblSfsds_3 = new JLabel("");
-		lblSfsds_3.setIcon(new ImageIcon("C:\\Users\\nasti\\OneDrive\\Изображения\\Снимки экрана\\Знімок екрана_20221121_142655.png"));
+		lblSfsds_3.setIcon(new ImageIcon(StartForm.class.getResource("/Forms/Images/IconsForStartForm.png")));
 		lblSfsds_3.setVerticalAlignment(SwingConstants.TOP);
 		lblSfsds_3.setHorizontalAlignment(SwingConstants.LEFT);
 		lblSfsds_3.setFont(new Font("Times New Roman", Font.PLAIN, 19));
