@@ -20,6 +20,8 @@ import javax.swing.JSeparator;
 import javax.swing.JTextPane;
 import java.awt.TextArea;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class StartForm {
 
@@ -33,7 +35,6 @@ public class StartForm {
 			public void run() {
 				try {
 					StartForm window = new StartForm();
-					window.frmPizzeria.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -46,6 +47,7 @@ public class StartForm {
 	 */
 	public StartForm() {
 		initialize();
+		frmPizzeria.setVisible(true);
 	}
 
 	/**
@@ -89,6 +91,57 @@ public class StartForm {
 		radioButtonDifficult.setBackground(new Color(205, 252, 154));
 		radioButtonDifficult.setBounds(514, 67, 103, 21);
 		frmPizzeria.getContentPane().add(radioButtonDifficult);
+		
+		radioButtonEasy.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				if(radioButtonEasy.isSelected())
+				{
+					radioButtonMedium.setSelected(false);
+					radioButtonDifficult.setSelected(false);
+					radioButtonCustom.setSelected(false);
+				}
+
+			}
+		});
+		radioButtonMedium.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				if(radioButtonMedium.isSelected())
+				{
+					radioButtonDifficult.setSelected(false);
+					radioButtonEasy.setSelected(false);
+					radioButtonCustom.setSelected(false);
+				}
+
+			}
+		});
+		radioButtonDifficult.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(radioButtonDifficult.isSelected())
+				{
+					radioButtonEasy.setSelected(false);
+					radioButtonCustom.setSelected(false);
+					radioButtonMedium.setSelected(false);
+				}
+
+			}
+		});
+		radioButtonCustom.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(radioButtonCustom.isSelected())
+				{
+					radioButtonDifficult.setSelected(false);
+					radioButtonMedium.setSelected(false);
+					radioButtonEasy.setSelected(false);
+				}
+
+			}
+		});
 		
 		JLabel lblSfsds = new JLabel("");
 		lblSfsds.setVerticalAlignment(SwingConstants.TOP);
@@ -230,7 +283,56 @@ public class StartForm {
 		radioButtonSeparatedProcess.setBounds(369, 421, 103, 21);
 		frmPizzeria.getContentPane().add(radioButtonSeparatedProcess);
 		
+		radioButtonFixedCustomerMode.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) 
+			{
+				if(radioButtonFixedCustomerMode.isSelected())
+				{
+					radioButtonCustomCustomerMode.setSelected(false);
+				}
+			}
+		});
+		radioButtonCustomCustomerMode.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) 
+			{
+				if(radioButtonCustomCustomerMode.isSelected())
+				{
+					radioButtonFixedCustomerMode.setSelected(false);
+				}
+			}
+		});
+		radioButtonFullProcess.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) 
+			{
+				if(radioButtonFullProcess.isSelected())
+				{
+					radioButtonSeparatedProcess.setSelected(false);
+				}
+			}
+		});
+		radioButtonSeparatedProcess.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) 
+			{
+				if(radioButtonSeparatedProcess.isSelected())
+				{
+					radioButtonFullProcess.setSelected(false);
+				}
+			}
+		});
 		JButton ButtonStart = new JButton("Start");
+		ButtonStart.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				GameForm game = new GameForm();
+				frmPizzeria.setVisible(false);
+				
+				
+			}
+		});
 		ButtonStart.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		ButtonStart.setBounds(700, 421, 164, 42);
 		frmPizzeria.getContentPane().add(ButtonStart);
