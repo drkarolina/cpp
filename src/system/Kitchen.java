@@ -16,10 +16,10 @@ import enums.EnumStatuses;
 import enums.Ingridients;
 
 
-class Kitchen{
+public class Kitchen{
     private static LinkedBlockingQueue<Command> queue_commands = new LinkedBlockingQueue<>();
 
-    private static Vector<Order> orders = new Vector<>();;
+    private static Vector<Order> orders = new Vector<>();
 
     private static Vector<Boolean> chillCook = new Vector<>();
 
@@ -27,11 +27,6 @@ class Kitchen{
 
     private Vector<Cook> cooks = new Vector<>();
 
-    public Vector<Boolean> getChillingCookVector() {
-        return chillingCooks;
-    }
-
-    private static Vector<Boolean> chillingCooks;
 
     Kitchen(Integer _cookCount, ECookType _type){
         for (int i = 0; i != _cookCount; i++){
@@ -41,11 +36,11 @@ class Kitchen{
         }
     }
 
-    Vector<Boolean> getChillCooks(){
+    public Vector<Boolean> getChillCooks(){
         return chillCook;
     }
 
-    Vector<Order> getOrders(){
+    public Vector<Order> getOrders(){
         return orders;
     }
 
@@ -115,6 +110,7 @@ class Kitchen{
                         break;
                 }
             }
+            addCommand(new Command(ECommand.TO_BAKE, pizza.get(i).getPizzaId(), _order.GetId()));
         }
     }
 
@@ -123,7 +119,7 @@ class Kitchen{
 
         ECookType type;
 
-        private final Integer time_of_work = 300;
+        private final Integer time_of_work = 3000;
 
         private Integer cout_of_commands;
 
@@ -193,6 +189,7 @@ class Kitchen{
                             DoWork();
                             switch (command.getCommand_type()) {
                                 case KANEAD_DOUGH:
+                                    System.out.println(command.getPizza_ID()+ " " + command.getOrder_ID() + "kneading" + " " + orders.get(command.getOrder_ID()).toString() + " pizzaID ");
                                     orders.get(command.getOrder_ID()).GetPizzasList().get(command.getPizza_ID()).setPizzaStatus(String.valueOf(EnumStatuses.kneading));
                                     break;
                                 case PUT_PICKLES:
@@ -205,7 +202,7 @@ class Kitchen{
                                 case PUT_PINEAPPLE:
                                 case PUT_SAUCE:
                                 case PUT_CORN:
-                                    orders.get(command.getOrder_ID()).GetPizzasList().get(command.getPizza_ID()).setPizzaStatus(String.valueOf(EnumStatuses.adding_ingridients));
+                                orders.get(command.getOrder_ID()).GetPizzasList().get(command.getPizza_ID()).setPizzaStatus(String.valueOf(EnumStatuses.adding_ingridients));
                                     break;
                                 case TO_BAKE:
                                     orders.get(command.getOrder_ID()).GetPizzasList().get(command.getPizza_ID()).setPizzaStatus(String.valueOf(EnumStatuses.baking));
@@ -219,6 +216,7 @@ class Kitchen{
                                 orders.get(command.getOrder_ID()).GetPizzasList().get(command.getPizza_ID()).setPizzaStatus(String.valueOf(EnumStatuses.ready));
                             }
                         } else {
+
                             mutex.unlock();
                             chill();
                         }

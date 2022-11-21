@@ -42,7 +42,7 @@ public class GameForm {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GameForm window = new GameForm(ECookType.STANDART,1,1,1);
+					GameForm window = new GameForm(ECookType.STANDART,1,1,1,60000);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,13 +54,16 @@ public class GameForm {
 	/**
 	 * Create the application.
 	 */
-	public GameForm(ECookType cooktype,int registersCount,int cookCount,int pizzaCount) {
-		system = PizzaSystem.getInstance(cooktype, registersCount, cookCount, pizzaCount);
+	public GameForm(ECookType cooktype,int registersCount,int cookCount,int pizzaCount,int orderPeriod) {
+		system = PizzaSystem.getInstance(cooktype, registersCount, cookCount, pizzaCount,orderPeriod);
 		initialize();
 		this.frame.setVisible(true);
 	}
-	Timer updateInfo = new Timer(1500, e->{		
-		var customers = Log.GetCustommers();
+	Timer updateInfo = new Timer(150, e->{		
+		var orders = system.kitchen.getOrders();
+		for (var order  : orders) {
+			System.out.println(order.GetId()+" order status "+ order.GetPizzasList().get(0).getPizzaStatus() );
+		}
 	});
 	/**
 	 * Initialize the contents of the frame.

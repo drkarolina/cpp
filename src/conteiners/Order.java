@@ -35,7 +35,7 @@ public class Order {
 
     //Builder Class
     public static class OrderBuilder{
-        private static int IDCounter = 1;
+        private static int IDCounter = 0;
 
         //required parameters
         private int id;

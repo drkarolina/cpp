@@ -311,7 +311,7 @@ public class StartForm {
 			{
 				if(radioButtonFixedCustomerMode.isSelected())
 				{
-					visitorsPeriod = 60;
+					visitorsPeriod = 60000;
 					isCustomVisitors = false;
 					radioButtonCustomCustomerMode.setSelected(false);
 				}
@@ -398,9 +398,9 @@ public class StartForm {
 				}
 				if(isCustomVisitors)
 				{
-					visitorsPeriod = (int) numberCustomCheckouts_1.getValue();
+					visitorsPeriod = (int) numberCustomCheckouts_1.getValue() * 60000;
 				}
-				GameForm game = new GameForm(CookType, registersCount, cooksCount, pizzaCount);
+				GameForm game = new GameForm(CookType, registersCount, cooksCount, pizzaCount,visitorsPeriod);
 				frmPizzeria.setVisible(false);
 			}
 		});

@@ -29,7 +29,7 @@ public class Pizza {
 	}
 	
 	//getters
-	String getPizzaStatus()
+	public String getPizzaStatus()
 	{
 		return this.status;
 	}
@@ -61,6 +61,7 @@ public class Pizza {
 		{
 		case "Hawaiian":
 			this.name = "Hawaiian";
+			ingridients.put(Ingridients.DOUGH, true);
 			ingridients.put(Ingridients.SAUCE,true);
 			ingridients.put(Ingridients.CHICKEN,true);
 			ingridients.put(Ingridients.CORN,true);
@@ -69,18 +70,21 @@ public class Pizza {
 			break;
 		case "Margherita":
 			this.name = "Margherita";
+			ingridients.put(Ingridients.DOUGH, true);
 			ingridients.put(Ingridients.TOMATOES,true);
 			ingridients.put(Ingridients.BASIL,true);
 			ingridients.put(Ingridients.CHEESE,true);
 			break;
 		case "Pepperoni":
 			this.name = "Pepperoni";
+			ingridients.put(Ingridients.DOUGH, true);
 			ingridients.put(Ingridients.TOMATOES,true);
 			ingridients.put(Ingridients.SAUSAGES,true);
 			ingridients.put(Ingridients.CHEESE,true);
 			break;
 		case "4 Seasons":
 			this.name = "4 Seasons";
+			ingridients.put(Ingridients.DOUGH, true);
 			ingridients.put(Ingridients.TOMATOES,true);
 			ingridients.put(Ingridients.SAUSAGES,true);
 			ingridients.put(Ingridients.CHICKEN,true);
@@ -91,6 +95,7 @@ public class Pizza {
 			break;
 		case "Pickles Pizza":
 			this.name = "Pickles Pizza";
+			ingridients.put(Ingridients.DOUGH, true);
 			ingridients.put(Ingridients.TOMATOES,true);
 			ingridients.put(Ingridients.PICKLES,true);
 			ingridients.put(Ingridients.OLIVES,true);

@@ -1,5 +1,7 @@
 package system;
 
+import javax.swing.Timer;
+
 import conteiners.Customer;
 import conteiners.Menu;
 import conteiners.Order;
@@ -16,19 +18,23 @@ public class PizzaSystem{
     private ECookType cookType;
     public Menu menu = new Menu();
     private Integer pizzaCount;
-    private Kitchen kitchen;
+    public Kitchen kitchen;
+    private Integer orderPeriod = 60000;
+    private PizzaSystem(ECookType _type, Integer _registersCount, Integer _cookCount, Integer _pizzaCount, Integer _orderPeriod){
 
-    private PizzaSystem(ECookType _type, Integer _registersCount, Integer _cookCount, Integer _pizzaCount){
         registersCount = _registersCount;
         cookCount = _cookCount;
         cookType = _type;
         pizzaCount = _pizzaCount;
+        orderPeriod = _orderPeriod;
         kitchen = new Kitchen(_cookCount, _type);
-        menu.pizzaMenu.add(new Pizza(1,"Hawaiian","in_queue").setDefaultPizzaIngridients("Hawaiian"));
+        menu.pizzaMenu.add(new Pizza(0,"Hawaiian","in_queue").setDefaultPizzaIngridients("Hawaiian"));
         menu.pizzaMenu.add(new Pizza(1,"Margherita","in_queue").setDefaultPizzaIngridients("Margherita"));
-        menu.pizzaMenu.add(new Pizza(1,"Pepperoni","in_queue").setDefaultPizzaIngridients("Pepperoni"));
-        menu.pizzaMenu.add(new Pizza(1,"4 Seasons","in_queue").setDefaultPizzaIngridients("4 Seasons"));
-        menu.pizzaMenu.add(new Pizza(1,"Pickles Pizza","in_queue").setDefaultPizzaIngridients("Pickles Pizza"));
+        menu.pizzaMenu.add(new Pizza(2,"Pepperoni","in_queue").setDefaultPizzaIngridients("Pepperoni"));
+        menu.pizzaMenu.add(new Pizza(3,"4 Seasons","in_queue").setDefaultPizzaIngridients("4 Seasons"));
+        menu.pizzaMenu.add(new Pizza(4,"Pickles Pizza","in_queue").setDefaultPizzaIngridients("Pickles Pizza"));
+        generateCustomer.start();
+        generateOrder();
     }
 
     public void stopCook(){
@@ -39,12 +45,13 @@ public class PizzaSystem{
         kitchen.delay(time);
     }
 
-    public static PizzaSystem getInstance(ECookType _type, Integer _registersCount, Integer _cookCount, Integer _pizzaCount){
+    public static PizzaSystem getInstance(ECookType _type, Integer _registersCount, Integer _cookCount, Integer _pizzaCount, Integer _orderiod){
         if(null == instance){
-            instance = new PizzaSystem(_type, _registersCount, _cookCount, _pizzaCount);
+            instance = new PizzaSystem(_type, _registersCount, _cookCount, _pizzaCount,_orderiod);
         }
         return instance;
     }
+
     public void generateOrder() {
 //        while(--registersCount != 0){
             Order order = new Order.OrderBuilder(menu.pizzaMenu).setStatus(EnumStatuses.in_queue).build();
@@ -57,4 +64,7 @@ public class PizzaSystem{
 //            }
 //        }
     }
+    Timer generateCustomer = new Timer(orderPeriod, e->{		
+		generateOrder();
+	});
 }
