@@ -8,6 +8,10 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.JCheckBox;
 import javax.swing.SwingConstants;
+
+import enums.ECookType;
+import system.PizzaSystem;
+
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.JLabel;
@@ -24,9 +28,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class StartForm {
-
+	private int visitorsPeriod;
+	private ECookType CookType;
+	private int registersCount;
+	private int cooksCount;
+	private int pizzaCount;
 	private JFrame frmPizzeria;
-
+	private boolean isCustomMode = false;
+	private boolean isCustomVisitors = false;
 	/**
 	 * Launch the application.
 	 */
@@ -98,6 +107,10 @@ public class StartForm {
 			{
 				if(radioButtonEasy.isSelected())
 				{
+					isCustomMode = false;
+					registersCount = 2;
+					cooksCount = 2;
+					pizzaCount = 3;
 					radioButtonMedium.setSelected(false);
 					radioButtonDifficult.setSelected(false);
 					radioButtonCustom.setSelected(false);
@@ -111,6 +124,10 @@ public class StartForm {
 				
 				if(radioButtonMedium.isSelected())
 				{
+					isCustomMode = false;
+					registersCount = 3;
+					cooksCount = 4;
+					pizzaCount = 7;
 					radioButtonDifficult.setSelected(false);
 					radioButtonEasy.setSelected(false);
 					radioButtonCustom.setSelected(false);
@@ -123,6 +140,10 @@ public class StartForm {
 			public void mouseClicked(MouseEvent e) {
 				if(radioButtonDifficult.isSelected())
 				{
+					isCustomMode = false;
+					registersCount = 5;
+					cooksCount = 8;
+					pizzaCount = 11;
 					radioButtonEasy.setSelected(false);
 					radioButtonCustom.setSelected(false);
 					radioButtonMedium.setSelected(false);
@@ -135,6 +156,7 @@ public class StartForm {
 			public void mouseClicked(MouseEvent e) {
 				if(radioButtonCustom.isSelected())
 				{
+					isCustomMode = true;
 					radioButtonDifficult.setSelected(false);
 					radioButtonMedium.setSelected(false);
 					radioButtonEasy.setSelected(false);
@@ -289,6 +311,8 @@ public class StartForm {
 			{
 				if(radioButtonFixedCustomerMode.isSelected())
 				{
+					visitorsPeriod = 60;
+					isCustomVisitors = false;
 					radioButtonCustomCustomerMode.setSelected(false);
 				}
 			}
@@ -299,6 +323,7 @@ public class StartForm {
 			{
 				if(radioButtonCustomCustomerMode.isSelected())
 				{
+					isCustomVisitors = true;
 					radioButtonFixedCustomerMode.setSelected(false);
 				}
 			}
@@ -310,6 +335,7 @@ public class StartForm {
 				if(radioButtonFullProcess.isSelected())
 				{
 					radioButtonSeparatedProcess.setSelected(false);
+					CookType = ECookType.PRO;
 				}
 			}
 		});
@@ -320,19 +346,12 @@ public class StartForm {
 				if(radioButtonSeparatedProcess.isSelected())
 				{
 					radioButtonFullProcess.setSelected(false);
+					CookType = ECookType.STANDART;
 				}
 			}
 		});
 		JButton ButtonStart = new JButton("Start");
-		ButtonStart.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				GameForm game = new GameForm();
-				frmPizzeria.setVisible(false);
-				
-				
-			}
-		});
+
 		ButtonStart.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		ButtonStart.setBounds(700, 421, 164, 42);
 		frmPizzeria.getContentPane().add(ButtonStart);
@@ -366,5 +385,24 @@ public class StartForm {
 		lbleveryChefIs_1.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		lbleveryChefIs_1.setBounds(478, 407, 198, 56);
 		frmPizzeria.getContentPane().add(lbleveryChefIs_1);
+
+		ButtonStart.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+				if(isCustomMode)
+				{
+					registersCount = (int) numberCustomCheckouts.getValue();
+					cooksCount = (int) numberCustomChefs.getValue();
+					pizzaCount = (int) numberCustomPizzas.getValue();
+				}
+				if(isCustomVisitors)
+				{
+					visitorsPeriod = (int) numberCustomCheckouts_1.getValue();
+				}
+				GameForm game = new GameForm(CookType, registersCount, cooksCount, pizzaCount);
+				frmPizzeria.setVisible(false);
+			}
+		});
 	}
 }

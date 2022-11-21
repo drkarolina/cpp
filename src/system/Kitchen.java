@@ -1,3 +1,4 @@
+package system;
 
 
 import java.util.ArrayList;
@@ -23,6 +24,12 @@ class Kitchen{
     private static ReentrantLock mutex = new ReentrantLock();
 
     private Vector<Cook> cooks = new Vector<>();
+
+    public Vector<Boolean> getChillingCookVector() {
+        return chillingCooks;
+    }
+
+    private static Vector<Boolean> chillingCooks;
 
     Kitchen(Integer _cookCount, ECookType _type){
         for (int i = 0; i != _cookCount; i++){

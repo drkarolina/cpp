@@ -1,3 +1,4 @@
+package system;
 
 import conteiners.Customer;
 import conteiners.Menu;
@@ -10,7 +11,7 @@ import enums.EnumStatuses;
 public class PizzaSystem{
     private static PizzaSystem instance;
     private Integer registersCount;
-    private Integer cookCount;
+    public Integer cookCount;
     private Integer pizzaTimeCook = 0;
     private ECookType cookType;
     public Menu menu = new Menu();

@@ -1,5 +1,5 @@
 package Forms;
-
+import java.io.*;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -12,12 +12,17 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
+import conteiners.Log;
+import enums.ECookType;
+import system.PizzaSystem;
+
 public class GameForm {
-
+	int cookCount;
 	private JFrame frame;
-
+	private PizzaSystem system;
 	private JPanel contentPane;
 	private JTable tablePizza;
 	private JTable tableOrder;
@@ -37,7 +42,7 @@ public class GameForm {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GameForm window = new GameForm();
+					GameForm window = new GameForm(ECookType.STANDART,1,1,1);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,15 +54,19 @@ public class GameForm {
 	/**
 	 * Create the application.
 	 */
-	public GameForm() {
+	public GameForm(ECookType cooktype,int registersCount,int cookCount,int pizzaCount) {
+		system = PizzaSystem.getInstance(cooktype, registersCount, cookCount, pizzaCount);
 		initialize();
 		this.frame.setVisible(true);
 	}
-
+	Timer updateInfo = new Timer(1500, e->{		
+		var customers = Log.GetCustommers();
+	});
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		updateInfo.start();
 		frame = new JFrame();
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\nasti\\Downloads\\pizza-slice.png"));
 		frame.setTitle("Pizzeria");

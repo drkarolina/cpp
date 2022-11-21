@@ -10,7 +10,7 @@ public class Pizza {
 	private int id;
 	private String name;
 	private LocalTime time;
-	private EnumMap<Ingridients,Boolean> ingridients;
+	private EnumMap<Ingridients,Boolean> ingridients = new EnumMap<>(Ingridients.class);
 	private String status;
 	
 	//constructors
@@ -66,16 +66,19 @@ public class Pizza {
 			ingridients.put(Ingridients.CORN,true);
 			ingridients.put(Ingridients.PINEAPPLE,true);
 			ingridients.put(Ingridients.CHEESE,true);
+			break;
 		case "Margherita":
 			this.name = "Margherita";
 			ingridients.put(Ingridients.TOMATOES,true);
 			ingridients.put(Ingridients.BASIL,true);
 			ingridients.put(Ingridients.CHEESE,true);
+			break;
 		case "Pepperoni":
 			this.name = "Pepperoni";
 			ingridients.put(Ingridients.TOMATOES,true);
 			ingridients.put(Ingridients.SAUSAGES,true);
 			ingridients.put(Ingridients.CHEESE,true);
+			break;
 		case "4 Seasons":
 			this.name = "4 Seasons";
 			ingridients.put(Ingridients.TOMATOES,true);
@@ -85,6 +88,7 @@ public class Pizza {
 			ingridients.put(Ingridients.OLIVES,true);
 			ingridients.put(Ingridients.BASIL,true);
 			ingridients.put(Ingridients.CHEESE,true);
+			break;
 		case "Pickles Pizza":
 			this.name = "Pickles Pizza";
 			ingridients.put(Ingridients.TOMATOES,true);
@@ -93,6 +97,7 @@ public class Pizza {
 			ingridients.put(Ingridients.CORN,true);
 			ingridients.put(Ingridients.SAUSAGES,true);
 			ingridients.put(Ingridients.CHEESE,true);
+			break;
 		}
 		return this;
 	}
