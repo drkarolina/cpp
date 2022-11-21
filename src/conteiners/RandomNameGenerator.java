@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class RandomNameGenerator {
-    private static ArrayList<String> names = new ArrayList<>(Arrays.asList(
+    private static final ArrayList<String> names = new ArrayList<>(Arrays.asList(
         "Neive Ruiz",
         "Colton Pace",
         "Jim Hensley",
