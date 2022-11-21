@@ -1,4 +1,5 @@
 
+import conteiners.Customer;
 import conteiners.Menu;
 import conteiners.Order;
 import conteiners.Pizza;
@@ -44,10 +45,9 @@ public class PizzaSystem{
         return instance;
     }
     public void generateOrder() {
-        int i=0;
 //        while(--registersCount != 0){
-            i++;
-            Order order = new Order.OrderBuilder(i, menu.pizzaMenu).setStatus(EnumStatuses.in_queue).build();
+            Order order = new Order.OrderBuilder(menu.pizzaMenu).setStatus(EnumStatuses.in_queue).build();
+            Customer customer = new Customer(0, order);
             kitchen.addOrder(order);
 //            try {
 //                Thread.sleep((int) ((Math.random() * (max - min)) + min));

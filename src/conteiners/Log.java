@@ -18,9 +18,11 @@ public class Log {
     public static void AddOrder(Order order){
         TimeStamp orderTime = new TimeStamp();
         orderTimes.put(order, orderTime);
-        order.GetPizzasList().forEach(pizza -> {
-            AddPizza(pizza);
-        });
+        if (order.GetPizzasList() != null){
+            order.GetPizzasList().forEach(pizza -> {
+                AddPizza(pizza);
+            });
+        }
     }
     private static void AddPizza(Pizza pizza){
         TimeStamp pizzaTime = new TimeStamp();
