@@ -35,6 +35,7 @@ public class Order {
 
     //Builder Class
     public static class OrderBuilder{
+        private static int IDCounter = 1;
 
         //required parameters
         private int id;
@@ -43,9 +44,11 @@ public class Order {
         //optional parameters
         private EnumStatuses status;
 
-        public OrderBuilder(int id, ArrayList<Pizza> pizzasList){
-            this.id=id;
+        public OrderBuilder(ArrayList<Pizza> pizzasList){
+            this.id=IDCounter;
             this.pizzasList=pizzasList;
+
+            IDCounter += 1;
         }
 
         public OrderBuilder setStatus(EnumStatuses status) {
