@@ -20,8 +20,6 @@ class Kitchen{
 
     public static Vector<Order> orders;
 
-    private static Vector<Boolean> chillingCooks;
-
     private static ReentrantLock mutex = new ReentrantLock();
 
     private Vector<Cook> cooks = new Vector<>();
@@ -51,9 +49,6 @@ class Kitchen{
         setOrderToCommand(_order);
     }
 
-    public Vector<Boolean> getChillingCookVector(){
-        return chillingCooks;
-    }
 
     public void addCommand(Command _command){
         queue_commands.add(_command);
@@ -111,6 +106,8 @@ class Kitchen{
 
         ECookType type;
 
+        private Integer time_to_wacation;
+
         private final Integer time_of_work = 300;
 
         private Integer cout_of_commands;
@@ -121,6 +118,7 @@ class Kitchen{
             ID = _ID;
             type = _type;
             cout_of_commands = 0;
+            time_to_wacation = (int) ((Math.random() * (200 - 70)) + 70);
         }
 
         private void DoWork() {
@@ -146,23 +144,19 @@ class Kitchen{
         }
 
         private void chill() {
-            chillingCooks.set(ID, true);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            chillingCooks.set(ID, false);
         }
 
         private void chill(Integer time) {
-            chillingCooks.set(ID, true);
             try {
                 Thread.sleep(time);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            chillingCooks.set(ID, false);
         }
 
         private void exit() {
