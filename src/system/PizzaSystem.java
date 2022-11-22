@@ -19,7 +19,7 @@ public class PizzaSystem{
     public Menu menu = new Menu();
     private Integer pizzaCount;
     public Kitchen kitchen;
-    private Integer orderPeriod = 60000;
+    private Integer orderPeriod = 15000;
     private PizzaSystem(ECookType _type, Integer _registersCount, Integer _cookCount, Integer _pizzaCount, Integer _orderPeriod){
 
         registersCount = _registersCount;

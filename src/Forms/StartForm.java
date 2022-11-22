@@ -311,7 +311,7 @@ public class StartForm {
 			{
 				if(radioButtonFixedCustomerMode.isSelected())
 				{
-					visitorsPeriod = 60000;
+					visitorsPeriod = 15000;
 					isCustomVisitors = false;
 					radioButtonCustomCustomerMode.setSelected(false);
 				}

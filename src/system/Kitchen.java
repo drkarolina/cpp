@@ -119,7 +119,7 @@ public class Kitchen{
 
         ECookType type;
 
-        private final Integer time_of_work = 3000;
+        private final Integer time_of_work = 15000;
 
         private Integer cout_of_commands;
 

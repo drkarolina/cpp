@@ -1,7 +1,7 @@
 package conteiners;
 
 public class Customer {
-    static int IDCounter = 1;
+    static int IDCounter = 0;
     private int line, id;
     private Order order;
     private String name;

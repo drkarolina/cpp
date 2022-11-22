@@ -59,17 +59,27 @@ public class GameForm {
 		initialize();
 		this.frame.setVisible(true);
 	}
-	Timer updateInfo = new Timer(150, e->{		
+	Timer updateInfo = new Timer(200, e->{		
 		var orders = system.kitchen.getOrders();
 		for (var order  : orders) {
-			System.out.println(order.GetId()+" order status "+ order.GetPizzasList().get(0).getPizzaStatus() );
+			DefaultTableModel model = (DefaultTableModel) tablePizza.getModel();
+			System.out.println(model.getRowCount());
+			if(orders.size() == model.getRowCount())
+			{
+				model.insertRow(order.GetId()+1,new Object[]{Log.GetCustommers().get(order.GetId()).GetName(),order.GetPizzasList().get(0).getPizzaStatus(),"0","0"});
+				model.removeRow(order.GetId());
+			}else
+			{
+				model.addRow(new Object[]{Log.GetCustommers().get(order.GetId()).GetName(),order.GetPizzasList().get(0).getPizzaStatus(),"0","0"});
+			}
+			tablePizza.setModel(model);
+			System.out.println(model.getRowCount());
 		}
 	});
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		updateInfo.start();
 		frame = new JFrame();
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\nasti\\Downloads\\pizza-slice.png"));
 		frame.setTitle("Pizzeria");
@@ -91,7 +101,7 @@ public class GameForm {
 				"Customer", "Status", "Start time", "End time"
 			}
 		));
-		tablePizza.setBounds(469, 43, 366, 16);
+		tablePizza.setBounds(469, 43, 366, 200);
 		contentPane.add(tablePizza);
 		
 		tableOrder = new JTable();
@@ -167,7 +177,7 @@ public class GameForm {
 		buttonBack.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		buttonBack.setBounds(553, 422, 134, 56);
 		contentPane.add(buttonBack);
-	
+		updateInfo.start();
 	}
 
 
