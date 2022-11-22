@@ -39,7 +39,7 @@ public class Pizza {
 		return this.id;
 	}
 	
-	String getPizzaName()
+	public String getPizzaName()
 	{
 		return this.name;
 	}

@@ -1,5 +1,8 @@
 package system;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import javax.swing.Timer;
 
 import conteiners.Customer;
@@ -17,6 +20,7 @@ public class PizzaSystem{
     private Integer pizzaTimeCook = 0;
     private ECookType cookType;
     public Menu menu = new Menu();
+    public ArrayList<Customer> customers = new ArrayList<Customer>();
     private Integer pizzaCount;
     public Kitchen kitchen;
     private Integer orderPeriod = 15000;
@@ -54,8 +58,12 @@ public class PizzaSystem{
 
     public void generateOrder() {
 //        while(--registersCount != 0){
-            Order order = new Order.OrderBuilder(menu.pizzaMenu).setStatus(EnumStatuses.in_queue).build();
+            int index = (int)(Math.random() * menu.pizzaMenu.size()-1);
+            int index2= (int)(Math.random() * menu.pizzaMenu.size()-1);
+            Order order = new Order.OrderBuilder(new ArrayList<Pizza>(Arrays.asList(menu.pizzaMenu.get(index),menu.pizzaMenu.get(index),menu.pizzaMenu.get(index),menu.pizzaMenu.get(index)))).setStatus(EnumStatuses.in_queue).build();
+  
             Customer customer = new Customer(0, order);
+            customers.add(customer);
             kitchen.addOrder(order);
 //            try {
 //                Thread.sleep((int) ((Math.random() * (max - min)) + min));

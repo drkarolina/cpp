@@ -16,8 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
-
-import conteiners.Log;
+import conteiners.*;
 import enums.ECookType;
 import system.PizzaSystem;
 import system.Kitchen.Cook;
@@ -68,8 +67,8 @@ public class GameForm {
 			DefaultTableModel model = (DefaultTableModel) tablePizza.getModel();
 			if(orders.size() == model.getRowCount())
 			{
-				model.insertRow(order.GetId()+1,new Object[]{Log.GetCustommers().get(order.GetId()).GetName(),order.GetPizzasList().get(0).getPizzaStatus(),"0","0"});
-				model.removeRow(order.GetId());
+				model.insertRow(order.GetId(),new Object[]{Log.GetCustommers().get(order.GetId()).GetName(),order.GetPizzasList().get(0).getPizzaStatus(),"0","0"});
+				model.removeRow(order.GetId()+1);
 			}else
 			{
 				model.addRow(new Object[]{Log.GetCustommers().get(order.GetId()).GetName(),order.GetPizzasList().get(0).getPizzaStatus(),"0","0"});
@@ -91,6 +90,33 @@ public class GameForm {
 				model.addRow(new Object[]{(int)pair.getKey(),(Boolean)pair.getValue() == true?"Chilling":"Working"});
 			}
 			tableChefs.setModel(model);
+		}
+		var customers = system.customers;
+		for (Customer customer : customers) {
+			DefaultTableModel model = (DefaultTableModel) tableCustomer.getModel();
+			if(customers.size() == model.getRowCount())
+			{
+				model.insertRow(customer.GetId(),new Object[]{customer.GetName(),customer.GetLine(),customer.GetOrder().GetId(),"0","0"});
+				model.removeRow(customer.GetId()+1);
+			}else
+			{
+				model.addRow(new Object[]{customer.GetName(),customer.GetLine(),customer.GetOrder().GetId(),"0","0"});
+			}
+			tableCustomer.setModel(model);
+		}
+		
+		for(var order  : orders )
+		{
+			DefaultTableModel model = (DefaultTableModel) tableOrder.getModel();
+			if(orders.size() == model.getRowCount())
+			{
+				model.insertRow(order.GetId(),new Object[]{customers.get(order.GetId()).GetName(),order.GetPizzasList().get(0).getPizzaName(),"0","0"});
+				model.removeRow(order.GetId()+1);
+			}else
+			{
+				model.addRow(new Object[]{customers.get(order.GetId()).GetName(),order.GetPizzasList().get(0).getPizzaName(),"0","0"});
+			}
+			tableOrder.setModel(model);
 		}
 	});
 	/**
@@ -130,7 +156,7 @@ public class GameForm {
 				"Customer", "Pizzas", "Status", "Queue", "Start time", "End time"
 			}
 		));
-		tableOrder.setBounds(22, 43, 366, 16);
+		tableOrder.setBounds(22, 43, 366, 200);
 		contentPane.add(tableOrder);
 		
 		tableCustomer = new JTable();
@@ -142,7 +168,7 @@ public class GameForm {
 				"Name", "QueueCustomer", "OrderID"
 			}
 		));
-		tableCustomer.setBounds(22, 276, 366, 16);
+		tableCustomer.setBounds(22, 276, 366, 200);
 		contentPane.add(tableCustomer);
 		
 		lblNewLabel = new JLabel("Orders");
