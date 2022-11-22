@@ -12,7 +12,10 @@ public class Pizza {
 	private LocalTime time;
 	private EnumMap<Ingridients,Boolean> ingridients = new EnumMap<>(Ingridients.class);
 	private String status;
-	
+	public Pizza CopyPizza()
+	{
+		return new Pizza(this.id,this.name,this.status);
+	}
 	//constructors
 	Pizza()
 	{

@@ -60,7 +60,7 @@ public class PizzaSystem{
 //        while(--registersCount != 0){
             int index = (int)(Math.random() * menu.pizzaMenu.size()-1);
             int index2= (int)(Math.random() * menu.pizzaMenu.size()-1);
-            Order order = new Order.OrderBuilder(new ArrayList<Pizza>(Arrays.asList(menu.pizzaMenu.get(index),menu.pizzaMenu.get(index),menu.pizzaMenu.get(index),menu.pizzaMenu.get(index)))).setStatus(EnumStatuses.in_queue).build();
+            Order order = new Order.OrderBuilder(new ArrayList<Pizza>(Arrays.asList(menu.pizzaMenu.get(index).CopyPizza(),menu.pizzaMenu.get(index).CopyPizza(),menu.pizzaMenu.get(index).CopyPizza(),menu.pizzaMenu.get(index).CopyPizza()))).setStatus(EnumStatuses.in_queue).build();
   
             Customer customer = new Customer(0, order);
             customers.add(customer);
