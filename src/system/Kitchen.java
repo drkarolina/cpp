@@ -1,6 +1,6 @@
 package system;
 
-
+import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -35,7 +35,14 @@ public class Kitchen{
             cooks.get(i).start();
         }
     }
-
+    public HashMap<Integer,Boolean> getCooks(){
+        var result = new HashMap<Integer,Boolean>();
+        for(int i =0;i<cooks.size();i++)
+        {
+            result.put(cooks.get(i).ID,chillCook.get(i));
+        }
+        return result;
+    }
     public Vector<Boolean> getChillCooks(){
         return chillCook;
     }
@@ -114,12 +121,12 @@ public class Kitchen{
         }
     }
 
-    static class Cook extends Thread {
-        private Integer ID;
+    public static class Cook extends Thread {
+        public Integer ID;
 
         ECookType type;
 
-        private final Integer time_of_work = 15000;
+        private final Integer time_of_work = 3000;
 
         private Integer cout_of_commands;
 

@@ -1,5 +1,7 @@
 package Forms;
 import java.io.*;
+import java.util.Iterator;
+import java.util.Map;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -18,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 import conteiners.Log;
 import enums.ECookType;
 import system.PizzaSystem;
+import system.Kitchen.Cook;
 
 public class GameForm {
 	int cookCount;
@@ -59,11 +62,10 @@ public class GameForm {
 		initialize();
 		this.frame.setVisible(true);
 	}
-	Timer updateInfo = new Timer(200, e->{		
+	Timer updateInfo = new Timer(2, e->{		
 		var orders = system.kitchen.getOrders();
 		for (var order  : orders) {
 			DefaultTableModel model = (DefaultTableModel) tablePizza.getModel();
-			System.out.println(model.getRowCount());
 			if(orders.size() == model.getRowCount())
 			{
 				model.insertRow(order.GetId()+1,new Object[]{Log.GetCustommers().get(order.GetId()).GetName(),order.GetPizzasList().get(0).getPizzaStatus(),"0","0"});
@@ -73,7 +75,22 @@ public class GameForm {
 				model.addRow(new Object[]{Log.GetCustommers().get(order.GetId()).GetName(),order.GetPizzasList().get(0).getPizzaStatus(),"0","0"});
 			}
 			tablePizza.setModel(model);
-			System.out.println(model.getRowCount());
+		}
+		var cooks = system.kitchen.getCooks();
+		Iterator it = cooks.entrySet().iterator();
+		while(it.hasNext())
+		{
+			Map.Entry pair=(Map.Entry)it.next();
+			DefaultTableModel model = (DefaultTableModel) tableChefs.getModel();
+			if(cooks.size() == model.getRowCount()-1)
+			{
+				model.insertRow((int)pair.getKey(),new Object[]{(int)pair.getKey(),(Boolean)pair.getValue() == true?"Chilling":"Working"});
+				model.removeRow((int)pair.getKey());
+			}else
+			{
+				model.addRow(new Object[]{(int)pair.getKey(),(Boolean)pair.getValue() == true?"Chilling":"Working"});
+			}
+			tableChefs.setModel(model);
 		}
 	});
 	/**
@@ -152,7 +169,7 @@ public class GameForm {
 				"Chef", "Status"
 			}
 		));
-		tableChefs.setBounds(469, 276, 366, 16);
+		tableChefs.setBounds(469, 276, 366, 100);
 		contentPane.add(tableChefs);
 		
 		lblChefs = new JLabel("Chefs");
